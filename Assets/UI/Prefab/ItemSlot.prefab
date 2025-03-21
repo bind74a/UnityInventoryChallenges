@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2977890391524245405}
   - component: {fileID: 605070627304630684}
   - component: {fileID: 2979626294249383410}
+  - component: {fileID: -7305885101974875694}
   m_Layer: 5
   m_Name: ItemSlot
   m_TagString: Untagged
@@ -121,7 +122,37 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 605070627304630684}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-7305885101974875694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389006578332627191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee1be31a33c6d342aaff9d79313058d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
+  Button: {fileID: 2979626294249383410}
+  icon: {fileID: 3867206048864560167}
+  equipIcon: {fileID: 4082326790874402439}
+  index: 0
+  equipped: 0
 --- !u!1 &4082326790874402439
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4502596674164737381
 RectTransform:
   m_ObjectHideFlags: 0
@@ -349,7 +380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3540358279294392507
 RectTransform:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,10 @@ public class Character: MonoBehaviour
     public int Health { get; private set; }//체력
     public int CriticalHit { get; private set; }//치명타
     public int Gold { get; private set; }//골드
+
+    public List<ItemData>[] hand;
+
+    public Action addItem;
 
     private void Awake()
     {
