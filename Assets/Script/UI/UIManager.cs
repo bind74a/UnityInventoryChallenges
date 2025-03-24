@@ -44,29 +44,29 @@ public class UIManager : MonoBehaviour
     {
         UIMainMenu.statBtn.gameObject.SetActive(true);
         UIMainMenu.invenBtn.gameObject.SetActive(true);
-        UIStatus.gameObject.SetActive(false);
-        UIInventory.gameObject.SetActive(false);
+        UIStatus.statWindow.gameObject.SetActive(false);
+        UIInventory.inverWindow.gameObject.SetActive(false);
     }
 
     public void OpenStatus()
     {
         UIMainMenu.statBtn.gameObject.SetActive(false);
         UIMainMenu.invenBtn.gameObject.SetActive(false);
-        UIStatus.gameObject.SetActive(true);
-        UIInventory.gameObject.SetActive(false);
+        UIStatus.statWindow.gameObject.SetActive(true);
+        UIInventory.inverWindow.gameObject.SetActive(false);
     }
 
     public void OpenInventory()
     {
         UIMainMenu.statBtn.gameObject.SetActive(false);
         UIMainMenu.invenBtn.gameObject.SetActive(false);
-        UIStatus.gameObject.SetActive(false);
-        UIInventory.gameObject.SetActive(true);
+        UIStatus.statWindow.gameObject.SetActive(false);
+        UIInventory.inverWindow.gameObject.SetActive(true);
     }
 
     public void TestEXPBtn()
     {
         GameManager.Instance.Player.TestAddEXP(10f);
-        UIMainMenu.curExp = GameManager.Instance.Player.Exp;//변동된 경험치을 ui값에 전달
+        UIMainMenu.curExp = GameManager.Instance.Player.Exp;
     }
 }

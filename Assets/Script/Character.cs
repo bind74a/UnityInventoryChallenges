@@ -19,9 +19,11 @@ public class Character: MonoBehaviour
     public int CriticalHit { get; private set; }//치명타
     public int Gold { get; private set; }//골드
 
-    public List<ItemData>[] hand;
+    public UIInventory Inventory;
 
-    public Action addItem;
+    public ItemData[] hand;//들고있는 아이템 리스트
+
+    public Action addItem;//인벤토리 아이템 생성
 
     private void Awake()
     {
@@ -54,5 +56,21 @@ public class Character: MonoBehaviour
     public void TestAddEXP(float exp)
     {
         Exp += exp;
+    }
+
+    public void Equip(ItemData equipValue)
+    {
+        Attack += equipValue.equipAttack;
+        Defens += equipValue.equipDef;
+        Health += equipValue.equipHealth;
+        CriticalHit += equipValue.equipCriticalHit;
+    }
+
+    public void UnEquip(ItemData unequipValue)
+    {
+        Attack -= unequipValue.equipAttack;
+        Defens -= unequipValue.equipDef;
+        Health -= unequipValue.equipHealth;
+        CriticalHit -= unequipValue.equipCriticalHit;
     }
 }

@@ -18,9 +18,16 @@ public class UIInventory : MonoBehaviour
 
     
 
+    private void Awake()
+    {
+            
+    }
+
+
     void Start()
     {
-        GameManager.Instance.Player.addItem += AddItem;
+        GameManager.Instance.Player.addItem += AddItem; // Player가 초기화된 후 구독 
+
         InitInventoryUI();
     }
 
@@ -30,20 +37,24 @@ public class UIInventory : MonoBehaviour
     /// </summary>
     void AddItem()
     {
-
-        List<ItemData>[] itemData = GameManager.Instance.Player.hand; //현재 손의 들고있는 아이템 리스트
-        ItemSlot nullSlot = GetEmptySlot();//인벤토리 빈공간 찾기
+        Debug.Log("호출됨");
+        ItemData[] itemData = GameManager.Instance.Player.hand; //현재 손의 들고있는 아이템 리스트
         for (int i = 0; i < itemData.Length; i++)//갖고있는 아이템 가방에 넣기
         {
-            foreach (ItemData item in itemData[i])//리스트에 있는 아이템을 자료형을 변경하는곳
+            ItemSlot nullSlot = GetEmptySlot();//인벤토리 빈공간 찾기
+
+            if (itemData[i] == null) //넣을 아이템이 없을때 작동
             {
-                if (nullSlot != null)
-                {
-                    nullSlot.item = item;
-                    UpdateUI();
-                    GameManager.Instance.Player.hand[i] = null;
-                    return;
-                }
+                return; 
+            }
+
+            if (nullSlot != null)
+            {
+                Debug.Log("빈칸찾음");
+                nullSlot.item = itemData[i];
+                UpdateUI();
+                GameManager.Instance.Player.hand[i] = null;
+                Debug.Log(nullSlot.item.equipDef);
             }
         }
     }
@@ -73,15 +84,17 @@ public class UIInventory : MonoBehaviour
     /// </summary>
     void InitInventoryUI()
     {
+        //Debug.Log("호출됨");
         invenBackBtn.onClick.AddListener(UIManager.Instance.OpenMainMenu);
-
+        int emptySlot = slots.Count(slot => slot.item == null);// slots.Count(slot => slot.item == null) 은 비어있는 슬롯을 카운트 하는것
         slots = new ItemSlot[slotPanel.childCount];
-        invenSlotText.text = $"{slots.Min()}/{slots.Length}";
+        invenSlotText.text = $"{emptySlot}/{slots.Length}";
 
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
             slots[i].index = i;//슬롯 번호 부여
+            //Debug.Log(slots[i].index);
         }
     }
 
@@ -99,5 +112,37 @@ public class UIInventory : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public void SelectItem(int slotIndex)
+    {
+        Debug.Log("호출됨");
+        ItemData item = slots[slotIndex].item;
+
+        if(item.equip && slots[slotIndex].equipped == false)//장착 가능여부 확인
+        {
+            Debug.Log("호출됨2");
+            GameManager.Instance.Player.Equip(item);
+            slots[slotIndex].equipped = true;
+            SlotEquip(slotIndex);
+            UIManager.Instance.UIStatus.UIStatDetaSet();
+        }
+        else if(item.equip && slots[slotIndex].equipped == true)
+        {
+            GameManager.Instance.Player.UnEquip(item);
+            slots[slotIndex].equipped = false;
+            SlotUnEquip(slotIndex);
+            UIManager.Instance.UIStatus.UIStatDetaSet();
+        }
+    }
+
+    void SlotEquip(int slotIndex)
+    {
+        slots[slotIndex].equipIcon.gameObject.SetActive(true);
+    }
+
+    void SlotUnEquip(int slotIndex)
+    {
+        slots[slotIndex].equipIcon.gameObject.SetActive(false);
     }
 }
